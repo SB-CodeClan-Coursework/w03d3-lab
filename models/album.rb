@@ -9,9 +9,9 @@ class Album
   attr_reader :id, :artist_id
 
   def initialize(details)
+    @id          = details['id'].to_i if details['id']
     @title       = details['title']
     @genre       = details['genre']
-    @id          = details['id'].to_i if details['id']
     @artist_id   = details['artist_id'].to_i
   end
 
@@ -31,8 +31,23 @@ class Album
     end
 
 
+    def self.all()
+      sql = "SELECT * FROM albums;"
+      albums = SqlRunner.run(sql)
+      return albums.map{ |album| Album.new(album) }
+    end
 
+    def artist
+      sql = "SELECT * FROM artists WHERE id = $1"
+      values = [@artist_id]
+      results = SqlRunner.run(sql, values)
+      artist_data = results[0]
+      artist = Artist.new(artist_data)
+      return artist
+    end
 
+    def update
+      sql = 
 
 
 
