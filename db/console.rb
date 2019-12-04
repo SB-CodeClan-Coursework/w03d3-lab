@@ -17,7 +17,6 @@ artist1.albums
 
 album1.artist
 
-# album1.update
 
 binding.pry
 nil
